@@ -1,5 +1,10 @@
-# Xumm Universal SDK with React - Demo
+# BiasFinder - Frontend
 
-See source (`src/App.tsx`)
+Works in the browser (desktop, mobile) (Normally haha)
 
-Works in the browser (desktop, mobile) and as xApp.
+To start it :
+
+npm install
+npm run dev
+
+(it's running on localhost:5173)
