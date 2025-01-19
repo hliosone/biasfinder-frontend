@@ -9,7 +9,6 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-RUN npm install react-router-dom
 
 # Now copy the rest of the app’s source code
 COPY . .

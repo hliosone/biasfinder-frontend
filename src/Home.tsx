@@ -302,44 +302,38 @@ export default function Home() {
           {notification}
         </div>
       )}
-      {/* Sélecteur d’utilisateur (exemple) */}
-      <div className="absolute top-4 left-4 flex items-center gap-2">
-        <label className="text-gray-700 font-bold">Utilisateur :</label>
-        <select
-          value={userId}
-          onChange={handleUserChange}
-          className="ml-2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-purple-300 bg-white"
+    {/* Sélecteur d’utilisateur (avec “Voir mon profil”) */}
+    <div className="absolute top-4 left-4 flex items-center gap-2">
+      <label className="text-gray-700 font-bold">Utilisateur :</label>
+      <select
+        value={userId}
+        onChange={handleUserChange}
+        className="ml-2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-purple-300 bg-white"
+      >
+        <option value="0">👑 Admin</option>
+        <option value="1">Utilisateur 1</option>
+        <option value="2">Utilisateur 2</option>
+        <option value="3">Utilisateur 3</option>
+      </select>
+
+      {/* BOUTON VOIR PROFIL */}
+      <Link
+        to={`/profile/${userId}`}
+        className="bg-purple-500 text-white px-4 py-2 rounded-md"
+      >
+        Voir mon profil
+      </Link>
+
+      {/* BOUTON PAGE ADMIN (optionnel), visible seulement si userId=0 */}
+      {userId === 0 && (
+        <Link
+          to="/admin"
+          className="bg-red-500 text-white px-4 py-2 rounded-md"
         >
-          <option value="0">👑 Admin</option>
-          <option value="1">Utilisateur 1</option>
-          <option value="2">Utilisateur 2</option>
-          <option value="3">Utilisateur 3</option>
-        </select>
-      </div>
-
-      
-
-      <div className="absolute top-4 left-4 flex items-center gap-2">
-  <label className="text-gray-700 font-bold">Utilisateur :</label>
-  <select
-    value={userId}
-    onChange={handleUserChange}
-    className="ml-2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-purple-300 bg-white"
-  >
-    <option value="0">👑 Admin</option>
-    <option value="1">Utilisateur 1</option>
-    <option value="2">Utilisateur 2</option>
-    <option value="3">Utilisateur 3</option>
-  </select>
-
-  {/* BOUTON VOIR PROFIL */}
-  <Link
-    to={`/profile/${userId}`}
-    className="bg-purple-500 text-white px-4 py-2 rounded-md"
-  >
-    Voir mon profil
-  </Link>
-</div>
+          Page Admin
+        </Link>
+      )}
+    </div>
 
 
       {/* Barre de recherche */}
