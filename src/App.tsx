@@ -11,7 +11,7 @@ type Photocard = {
 
 export default function App() {
   const [groups, setGroups] = useState<{ id: number; name: string }[]>([]);
-  const [artists, setArtists] = useState<string[]>([]);
+  const [artists, setArtists] = useState<{ id: number; name: string }[]>([]);
   const [query, setQuery] = useState("");
   const [groupFilter, setGroupFilter] = useState("all");
   const [artistFilter, setArtistFilter] = useState("all");
@@ -71,19 +71,26 @@ export default function App() {
     }
   }, [groupFilter]);
 
-  // Charger les photocards avec pagination et filtrage par groupe
+  // Charger les photocards avec pagination et filtrage
   const fetchPhotocards = async (reset = false) => {
     setLoading(true);
     const nextPage = reset ? 1 : page;
     let url = `http://localhost:7070/api/photocards?page=${nextPage}&size=24`;
-    
+
     if (groupFilter !== "all") {
       url += `&groupId=${groupFilter}`;
     }
+    
+    if (artistFilter !== "all") {
+      url += `&artistId=${artistFilter}`;
+    }
 
     try {
+      console.log("Fetching photocards from:", url);
       const response = await fetch(url);
       const data = await response.json();
+
+      console.log("API Response:", data);
 
       if (data.length < 24) {
         setHasMore(false);
@@ -105,7 +112,7 @@ export default function App() {
         setPage(2);
       } else {
         setPhotocards((prev) => [...prev, ...formattedData]);
-        setPage(prev => prev + 1);
+        setPage((prev) => prev + 1);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des photocards :", error);
@@ -113,10 +120,10 @@ export default function App() {
     setLoading(false);
   };
 
-  // Charger les cartes au démarrage et lors du changement de groupe
+  // Charger les photocards lors du changement de groupe ou d'artiste
   useEffect(() => {
     fetchPhotocards(true);
-  }, [groupFilter]);
+  }, [groupFilter, artistFilter]);
 
   // Fonction pour charger plus de cartes
   const loadMorePhotocards = () => {
@@ -128,9 +135,8 @@ export default function App() {
   // Logique de filtrage
   const filteredPhotocards = photocards.filter((photocard) => {
     const matchesQuery = query === "" || photocard.name.toLowerCase().includes(query.toLowerCase());
-    const matchesArtist = artistFilter === "all" || photocard.artistName === artistFilter;
     const matchesCategory = categories.length === 0 || categories.includes(photocard.type);
-    return matchesQuery && matchesArtist && matchesCategory;
+    return matchesQuery && matchesCategory;
   });
 
   const toggleCategory = (category: string) => {
@@ -203,9 +209,9 @@ export default function App() {
             <img src={photocard.image} alt={photocard.name} className="object-cover w-full h-48" />
             <div className="p-4">
               <h2 className="font-bold text-lg text-gray-800">{photocard.name}</h2>
-              <p className="text-sm text-gray-600">Groupe : {photocard.groupName || "Inconnu"}</p>
-              <p className="text-sm text-gray-600">Artiste : {photocard.artistName || "Inconnu"}</p>
-              <p className="text-sm text-gray-600">Catégorie : {photocard.type || "Inconnue"}</p>
+              <p className="text-sm text-gray-600">Groupe : {photocard.groupName}</p>
+              <p className="text-sm text-gray-600">Artiste : {photocard.artistName}</p>
+              <p className="text-sm text-gray-600">Catégorie : {photocard.type}</p>
             </div>
           </div>
         ))}
