@@ -1,8 +1,9 @@
 // App.tsx
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./Home";            // <-- Import du composant Home
-import UserProfile from "./UserProfile"; // <-- Import du composant UserProfile
-import AdminPage from "./AdminPage"; // <-- Import du composant Admin
+import Home from "./Home";           
+import UserProfile from "./UserProfile"; 
+import AdminPage from "./AdminPage"; 
+import ProposePhotocardPage from "./ProposePhotocardPage";
 
 export default function App() {
   return (
@@ -18,9 +19,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile/:userId" element={<UserProfile />} />
-
-          {/* NOUVELLE ROUTE ADMIN */}
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/propose" element={<ProposePhotocardPage />} />
         </Routes>
       </div>
     </Router>
