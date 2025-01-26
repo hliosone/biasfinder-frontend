@@ -39,7 +39,7 @@ export default function Home() {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await fetch("https://localhost/api/groupslist", { 
+        const response = await fetch("/api/groupslist", { 
           credentials: "include"
         });
         const data = await response.json();
@@ -62,7 +62,7 @@ export default function Home() {
       const fetchArtists = async () => {
         try {
           const response = await fetch(
-            `http://localhost/api/groups/${groupFilter}/artists`
+            `/api/groups/${groupFilter}/artists`
           );
           if (!response.ok) throw new Error("Erreur réseau");
           const data = await response.json();
@@ -86,7 +86,7 @@ export default function Home() {
   const fetchPhotocards = async (reset = false) => {
     setLoading(true);
     const nextPage = reset ? 1 : page;
-    let url = `http://localhost/api/photocards?page=${nextPage}&size=24`;
+    let url = `/api/photocards?page=${nextPage}&size=24`;
 
     if (groupFilter !== "all") {
       url += `&groupId=${groupFilter}`;
@@ -140,7 +140,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        `http://localhost/api/users/${userId}/collection`
+        `/api/users/${userId}/collection`
       );
       const data = await response.json();
       // Récupère uniquement l’ID des photocards possédées
@@ -197,7 +197,7 @@ export default function Home() {
   const handleWishlistToggle = async (photocardId: number) => {
     const inWishlist = wishlist.includes(photocardId);
     try {
-      await fetch(`http://localhost/api/users/${userId}/photocards`, {
+      await fetch(`/api/users/${userId}/photocards`, {
         method: inWishlist ? "DELETE" : "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -219,7 +219,7 @@ export default function Home() {
   const handleOwnedToggle = async (photocardId: number) => {
     const inOwned = owned.includes(photocardId);
     try {
-      await fetch(`http://localhost/api/users/${userId}/photocards`, {
+      await fetch(`/api/users/${userId}/photocards`, {
         method: inOwned ? "DELETE" : "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -246,7 +246,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch("http://localhost/api/user/photocard", {
+      const response = await fetch("/api/user/photocard", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -65,7 +65,7 @@ export default function ProposePhotocardPage() {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const resp = await fetch("http://localhost:7070/api/groupslist");
+        const resp = await fetch("/api/groupslist");
         const data = await resp.json();
         // ex: data = [{ groups_id:1, groups_name:"ATEEZ" }, ...]
         const mapped = data.map((g: any) => ({
@@ -109,7 +109,7 @@ export default function ProposePhotocardPage() {
     const fetchArtists = async () => {
       try {
         // ex: GET /api/groups/{groupId}/artists
-        const url = `http://localhost:7070/api/groups/${selectedGroupId}/artists`;
+        const url = `/api/groups/${selectedGroupId}/artists`;
         const resp = await fetch(url);
         if (!resp.ok) {
           console.warn("Pas d'artistes pour ce groupe.");
@@ -135,7 +135,7 @@ export default function ProposePhotocardPage() {
     // B) Charger la liste d'off. sources via groupName (on garde ta logique existante)
     const fetchSources = async () => {
       try {
-        const url = `http://localhost:7070/api/groups/official-sources?groupName=${encodeURIComponent(
+        const url = `/api/groups/official-sources?groupName=${encodeURIComponent(
           selectedGroupName
         )}`;
         const resp = await fetch(url);
@@ -191,7 +191,7 @@ export default function ProposePhotocardPage() {
 const shopParam = finalShopName || "NULL";
 
 const endpoint =
-  `http://localhost:7070/api/photocards/proposecard/` +
+  `/api/photocards/proposecard/` +
   `${encodeURIComponent(pcName)}/` +
   `${encodeURIComponent(shopParam)}/` +
   `${encodeURIComponent(url)}/` +
@@ -219,7 +219,7 @@ const endpoint =
       }
 
       const finalUrl =
-        `http://localhost:7070/api/officialsource/propose?` +
+        `/api/officialsource/propose?` +
         `groupName=${encodeURIComponent(selectedGroupName)}` +
         `&title=${encodeURIComponent(title)}` +
         `&type=${encodeURIComponent(selectedSourceType)}` +

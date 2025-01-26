@@ -20,7 +20,7 @@ export default function UserProfile() {
       try {
         // 1) Fetch des cartes possédées (have=true)
         const respOwned = await fetch(
-          `http://localhost:7070/api/users/${userId}/collection`
+          `/api/users/${userId}/collection`
         );
         const dataOwned = await respOwned.json();
         setOwned(
@@ -33,7 +33,7 @@ export default function UserProfile() {
 
         // 2) Fetch de la wishlist (have=false)
         const respWishlist = await fetch(
-          `http://localhost:7070/api/users/${userId}/wishlist`
+          `/api/users/${userId}/wishlist`
         );
         const dataWishlist = await respWishlist.json();
         setWishlist(

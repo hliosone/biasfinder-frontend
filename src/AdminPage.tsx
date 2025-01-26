@@ -19,7 +19,7 @@ export default function AdminPage() {
     const fetchProposedCards = async () => {
       try {
         // ICI on utilise ta route : /api/proposedphotocards
-        const response = await fetch("http://localhost:7070/api/proposedphotocards");
+        const response = await fetch("/api/proposedphotocards");
         // Si le back renvoie 404 quand c'est vide, on peut gérer le cas 
         if (!response.ok) {
           console.warn("Aucune carte proposée ou erreur");
@@ -60,7 +60,7 @@ export default function AdminPage() {
     if (selectedIds.length === 0) return;
 
     try {
-      await fetch("http://localhost:7070/api/admin/accept", {
+      await fetch("/api/admin/accept", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ photocardIds: selectedIds }),
@@ -79,7 +79,7 @@ export default function AdminPage() {
     if (selectedIds.length === 0) return;
 
     try {
-      await fetch("http://localhost:7070/api/admin/reject", {
+      await fetch("/api/admin/reject", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ photocardIds: selectedIds }),
