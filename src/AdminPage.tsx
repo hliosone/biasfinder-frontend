@@ -80,7 +80,7 @@ export default function AdminPage() {
 
     try {
       await fetch("http://localhost:7070/api/admin/reject", {
-        method: "PATCH",
+        method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ photocardIds: selectedIds }),
       });
