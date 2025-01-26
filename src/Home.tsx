@@ -39,7 +39,9 @@ export default function Home() {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await fetch("http://localhost/api/groupslist");
+        const response = await fetch("https://localhost/api/groupslist", { 
+          credentials: "include"
+        });
         const data = await response.json();
         setGroups(
           data.map((group: { groups_id: number; groups_name: string }) => ({
